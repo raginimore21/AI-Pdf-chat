@@ -312,6 +312,79 @@ Answer not found in PDF
 
 ---
 
+# Performance Analysis
+
+The system may take a few seconds to generate answers because of the following reasons:
+
+1. Local AI processing:
+   The project uses Ollama with local AI models (Phi3/TinyLlama). Models run on the user's machine instead of cloud servers.
+
+2. PDF text extraction:
+   The application first extracts text from the uploaded PDF using pdf-parse before answering.
+
+3. Large PDF content:
+   Bigger PDF files contain more text, increasing processing time.
+
+4. Context searching:
+   Before generating answers, the system searches for relevant content inside the PDF.
+
+5. Hardware limitations:
+   Response speed depends on:
+   - CPU
+   - RAM
+   - Disk speed
+   - GPU availability
+
+6. AI model size:
+   Larger models provide better answers but require more processing time.
+
+Examples:
+
+- TinyLlama:
+  Faster response
+  Lower accuracy
+
+- Phi3:
+  Better answer quality
+  Slightly slower
+
+- Llama3:
+  Best quality
+  Slowest among local models
+
+---
+
+# Optimizations Applied
+
+To improve speed, the following optimizations were used:
+
+- Relevant PDF chunks are selected before sending to AI
+- Limited context size
+- Chat history clears when new PDF uploads
+- Reduced unnecessary prompt size
+- Lower temperature values used
+- Restricted generated output length
+
+---
+
+# Challenges Faced
+
+During development:
+
+- Gemini API quota exceeded
+- Local model setup issues
+- Slow response time
+- Incorrect PDF answer retrieval
+- Matching relevant content from large PDFs
+- Managing chat state after new uploads
+
+Solutions:
+
+- Switched to Ollama
+- Used Phi3/TinyLlama
+- Added context filtering
+- Improved prompts
+- Added automatic chat clearing
 # Conclusion
 
 The AI PDF Q&A System provides an interactive way for users to query PDF documents using natural language. It combines document parsing with AI to improve accessibility and information retrieval from large documents.
